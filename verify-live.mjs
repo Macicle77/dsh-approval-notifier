@@ -84,7 +84,7 @@ async function main() {
   }
   const initial = readStatus()
   check(initial.plugin === 'dsh-approval-notifier', 'status plugin id')
-  check(initial.version === '2.0.0', 'status version is 2.0.0', initial.version)
+  check(/^\d+\.\d+\.\d+$/u.test(String(initial.version ?? '')), 'status version is semver', initial.version)
   check(initial.brand === '哨兵', 'status brand 哨兵', initial.brand)
   check(initial.debug === true, 'status debug enabled')
   check(initial.routes?.pending === '/dsh-approval-notifier/pending', 'status route table', initial.routes)

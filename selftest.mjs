@@ -67,6 +67,8 @@ const REQUIRED_CLIENT_MARKERS = [
   'full-shrunk',
   'layoutRatio',
   'sn-hover',
+  'bottomDockTop',
+  'dockTop',
   'sn-fold',
   'sn-hl',
   '__DSH_SENTINEL_VIEW__',
@@ -204,7 +206,7 @@ const TINY_PNG_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR
 async function main() {
   const manifest = JSON.parse(readFileSync(join(HERE, 'package.json'), 'utf8'))
   check(manifest.name === 'dsh-approval-notifier', 'package name')
-  check(manifest.version === '2.0.0', 'package version is 2.0.0')
+  check(/^\d+\.\d+\.\d+$/u.test(String(manifest.version ?? '')), 'package version is semver')
   check(String(manifest.description ?? '').includes('哨兵'), 'description carries the brand')
   check(manifest.type === 'module', 'package is ESM')
   check(manifest.publishConfig?.access === 'public', 'publishConfig is public')
@@ -418,8 +420,8 @@ async function main() {
     else process.env.DSH_HOME = previousHome
   }
 
-  // Optional extra file used by packaging: a CHANGELOG mentioning 2.0.0.
-  check(readFileSync(join(HERE, 'CHANGELOG.md'), 'utf8').includes('2.0.0'), 'CHANGELOG mentions 2.0.0')
+  // Optional extra file used by packaging: a CHANGELOG mentioning the version.
+  check(readFileSync(join(HERE, 'CHANGELOG.md'), 'utf8').includes(String(manifest.version)), 'CHANGELOG mentions the current version')
 
   process.stdout.write(`\nselftest: ${String(checks - failures.length)}/${String(checks)} checks passed\n`)
   if (failures.length > 0) {

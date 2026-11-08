@@ -1239,9 +1239,56 @@ window.__ModuleLoader__.load({
       }
 
       /**
+       * Top edge of the bottom dock (composer input, or the native approval
+       * dialog when it replaces the composer). Reminder cards are anchored
+       * above this line so the dock — including 允许一次/拒绝 — stays visible.
+       */
+      function bottomDockTop(viewHeight) {
+        let top
+        for (const element of safe(() => [...document.querySelectorAll('textarea, [contenteditable="true"]')], [])) {
+          const rect = safe(() => element.getBoundingClientRect(), undefined)
+          if (rect === undefined || rect.height < 18 || rect.width < 180) continue
+          if (rect.top < viewHeight * 0.45 || rect.top > viewHeight) continue
+          if (top === undefined || rect.top < top) top = rect.top
+        }
+        const walker = safe(() => document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), undefined)
+        if (walker !== undefined) {
+          while (walker.nextNode()) {
+            const value = asText(walker.currentNode.textContent)
+            if (!/等待审批|等待批准|等待确认|Waiting for approval|允许本次操作使用/u.test(value)) continue
+            let element = walker.currentNode.parentElement
+            for (let depth = 0; depth < 10 && element !== null; depth += 1) {
+              const rect = safe(() => element.getBoundingClientRect(), undefined)
+              if (rect !== undefined && rect.width >= 300 && rect.height >= 80 && rect.top >= viewHeight * 0.5 && rect.bottom >= viewHeight * 0.8 && rect.top <= viewHeight - 40) {
+                if (top === undefined || rect.top < top) top = rect.top
+                break
+              }
+              element = element.parentElement
+            }
+          }
+        }
+        if (top === undefined) {
+          // Fallback: the bottom dock may be an approval surface that hides the
+          // composer. Its action buttons sit near the bottom; keep the cards
+          // above the whole surface, not on top of its text.
+          let buttonTop
+          for (const element of safe(() => [...document.querySelectorAll('button, [role="button"]')], [])) {
+            const text = asText(element.textContent)
+            if (!/允许一次|始终允许|允许|拒绝|不同意|同意/u.test(text)) continue
+            const rect = safe(() => element.getBoundingClientRect(), undefined)
+            if (rect === undefined || rect.width < 10 || rect.height < 10) continue
+            if (rect.bottom < viewHeight * 0.82 || rect.top < viewHeight * 0.5) continue
+            if (buttonTop === undefined || rect.top < buttonTop) buttonTop = rect.top
+          }
+          if (buttonTop !== undefined) top = Math.max(viewHeight * 0.4, buttonTop - 100)
+        }
+        return top
+      }
+
+      /**
        * Measure the page. The frame follows the conversation area:
-       * right edge = scrollbar left edge, bottom = bottom of the conversation
-       * column (status bar top), top = the line under the 对话/轨迹 tabs.
+       * right edge = scrollbar left edge, bottom = just above the input dock
+       * (composer / native approval dialog), top = the line under 对话/轨迹.
        */
       function measureFrame() {
         const visual = window.visualViewport
@@ -1250,7 +1297,11 @@ window.__ModuleLoader__.load({
         const scrollbar = Math.max(0, Math.round((window.innerWidth || viewWidth) - document.documentElement.clientWidth))
         const right = viewWidth - (scrollbar > 0 ? scrollbar : 17) - 2
         const top = 114
-        const bottom = viewHeight - 22
+        const defaultBottom = viewHeight - 22
+        const dockTop = bottomDockTop(viewHeight)
+        const bottom = dockTop === undefined
+          ? defaultBottom
+          : Math.min(defaultBottom, Math.max(top + 140, Math.round(dockTop - 10)))
         const cardWidth = Math.max(260, Math.min(380, right - 268 - 16))
         return { viewWidth, viewHeight, top, bottom, right, cardWidth, topSafe: top, scrollbar }
       }
@@ -1571,6 +1622,11 @@ window.__ModuleLoader__.load({
           const rect = safe(() => node.getBoundingClientRect(), undefined)
           if (rect === undefined || rect.width < 10 || rect.height < 10) continue
           if (rect.bottom < 0 || rect.top > window.innerHeight) continue
+          // Only the bottom dock's approval buttons matter. Buttons that belong
+          // to approval cards in the conversation history must not trigger the
+          // overlay (the cards themselves already sit above the dock now).
+          const frameNow = state.frame ?? measureFrame()
+          if (rect.top < frameNow.bottom + 2) continue
           result.push({ rect, text: text.trim().slice(0, 12) })
         }
         return result
@@ -2310,7 +2366,7 @@ window.__ModuleLoader__.load({
           if (rect === undefined) continue
           minTop = Math.min(minTop, rect.top)
           maxBottom = Math.max(maxBottom, rect.bottom)
-          if (rect.top < frame.top - 2 || rect.bottom > frame.bottom + 2 || rect.right > frame.right + 2) inside = false
+          if (rect.top < frame.top - 4 || rect.bottom > frame.bottom + 4 || rect.right > frame.right + 4) inside = false
         }
         let normal = 0
         let folded = 0

@@ -1,6 +1,6 @@
 {
   "name": "dsh-approval-notifier",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "「哨兵 / Sentinel」：任意工作区/会话需要确认时，在 DSH 右下角逐条提醒，可配置弹出动画与提示音；点击去处理后左下角反馈“正在处理”。只提醒，绝不替你做决定。",
   "keywords": [
     "dsh",
