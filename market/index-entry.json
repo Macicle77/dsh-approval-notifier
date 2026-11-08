@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "title": {
+    "en": "Sentinel — Confirmation reminders for DeepSeek Harness",
+    "zh": "哨兵 — DeepSeek Harness 确认提醒"
+  },
+  "description": {
+    "en": "Pops one compact reminder card per pending confirmation in any workspace/session, with configurable animation and sound. Only reminds — never answers for you.",
+    "zh": "任意工作区/会话需要确认时，在右下角逐条提醒；可配置动画与提示音，点击去处理后左下角反馈“正在处理”。只提醒，绝不替用户做决定。"
+  },
+  "metadata": {
+    "categories": {
+      "confirmation-reminders": {
+        "title": {
+          "en": "Confirmation reminders",
+          "zh": "确认提醒"
+        }
+      }
+    },
+    "labels": {},
+    "sortKeys": {}
+  },
+  "plugins": [
+    {
+      "name": "dsh-approval-notifier",
+      "title": "Sentinel · Confirmation reminders",
+      "description": "Pops one reminder card per pending confirmation in any workspace/session, with configurable animation and sound. Only reminds — it never answers for you.",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJTZW50aW5lbCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZiMzVjIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmN2ExYSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMjIiIGZpbGw9IiMxZDE3MTIiLz4KICA8cGF0aCBkPSJNNDggMTRjLTMgMC01LjQgMi4yLTUuNCA1djIuNkMzMS42IDI0LjkgMjQgMzQuOCAyNCA0Ni40djExLjJsLTYuNCA4LjFjLTEuNCAxLjgtLjEgNC4zIDIuMSA0LjNoNTYuNmMyLjIgMCAzLjUtMi41IDIuMS00LjNMNzIgNTcuNlY0Ni40YzAtMTEuNi03LjYtMjEuNS0xOC42LTI0LjhWMTljMC0yLjgtMi40LTUtNS40LTVaIiBmaWxsPSJ1cmwoI2cpIi8+CiAgPHBhdGggZD0iTTM5IDc2YTkgOSAwIDAgMCAxOCAwWiIgZmlsbD0idXJsKCNnKSIvPgogIDxjaXJjbGUgY3g9IjczIiBjeT0iMjUiIHI9IjkiIGZpbGw9IiNmZjlmNDMiIHN0cm9rZT0iIzFkMTcxMiIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPHBhdGggZD0iTTY5LjUgMjUuNWwyLjQgMi40IDQuMi00LjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIzMWExMCIgc3Ryb2tlLXdpZHRoPSIyLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K",
+      "author": "Sentinel Contributors",
+      "homepage": "https://www.npmjs.com/package/dsh-approval-notifier",
+      "metadata": {
+        "category": "confirmation-reminders",
+        "keywords": [
+          "dsh",
+          "dsh-plugin",
+          "deepseek-harness",
+          "deepseek-harness-plugin",
+          "notification",
+          "reminder",
+          "approval",
+          "confirmation",
+          "sentinel",
+          "approval-notifier"
+        ],
+        "labels": [],
+        "sortKeys": {}
+      },
+      "versions": [
+        {
+          "version": "2.0.0",
+          "publishTimestamp": 1793718290,
+          "source": {
+            "type": "npm"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.1 <0.3.0-0"
+          }
+        }
+      ]
+    }
+  ]
+}

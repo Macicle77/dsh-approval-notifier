@@ -1,0 +1,83 @@
+{
+  "name": "dsh-approval-notifier",
+  "version": "2.0.0",
+  "description": "「哨兵 / Sentinel」：任意工作区/会话需要确认时，在 DSH 右下角逐条提醒，可配置弹出动画与提示音；点击去处理后左下角反馈“正在处理”。只提醒，绝不替你做决定。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek-harness-plugin",
+    "notification",
+    "reminder",
+    "approval",
+    "confirmation",
+    "sentinel",
+    "approval-notifier"
+  ],
+  "type": "module",
+  "main": "lib/host.js",
+  "exports": {
+    ".": "./lib/host.js",
+    "./client": "./client/client.js",
+    "./icon.svg": "./icon.svg",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "lib",
+    "client",
+    "locale",
+    "cordis.patch.yml",
+    "icon.svg",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "license": "MIT",
+  "author": "macicle <shibuqingmu@sina.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Macicle77/dsh-approval-notifier.git"
+  },
+  "homepage": "https://github.com/Macicle77/dsh-approval-notifier#readme",
+  "bugs": {
+    "url": "https://github.com/Macicle77/dsh-approval-notifier/issues"
+  },
+  "icon": "./icon.svg",
+  "engines": {
+    "node": ">=20",
+    "dsh": ">=0.2.1-rc.1 <0.2.2-0 || >=0.2.2-rc.1 <0.3.0-0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.5",
+    "@deepseek-ai/schemastery": "^3.18.5"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node selftest.mjs",
+    "pack:market": "node tools/package.mjs",
+    "verify:live": "node verify-live.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  }
+}

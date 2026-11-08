@@ -1,0 +1,9 @@
+node_modules/
+dist/
+research/
+.dsh-debug/
+*.tgz
+*.log
+status.json
+.DS_Store
+Thumbs.db

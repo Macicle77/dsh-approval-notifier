@@ -1,0 +1,11 @@
+# dsh-approval-notifier bundle patch.
+#
+# Applied when this package is selected in the profile's `dsh.profile.bundles`
+# (the official Plugins page / plugin manager does that on install). It inserts
+# the single Host row the browser half attaches to:
+#   - the row id IS the official settings namespace the Plugins page edits
+#     (`ctx.configForms.get('dsh-approval-notifier')`), and
+#   - its `Config` schema declares the live (volatile) preference fields.
+- insert:
+    - id: dsh-approval-notifier
+      name: 'dsh-approval-notifier'

@@ -1,0 +1,13 @@
+# awesome-dsh-plugin submission entry template.
+#
+# Copy this file to `data/plugins/Macicle77__dsh-approval-notifier.yml` in a fork of
+# https://github.com/awesome-dsh-plugin/awesome-dsh-plugin and open a PR.
+# Requirements: repo declares dsh.bundle, is at least 1 day old, has the
+# `dsh-plugin` topic, and the description must match the code exactly.
+url: https://github.com/Macicle77/dsh-approval-notifier
+name: Macicle77/dsh-approval-notifier
+category: notify
+description:
+  en: 'Sentinel: one compact reminder per pending confirmation in any DeepSeek Harness workspace or session, with configurable animation, sound, per-item escalation and a second reminder. Only reminds — it never answers for you.'
+  zh: '哨兵：任意工作区/会话需要确认时逐条提醒，可配置动画与提示音，支持按条升级与二次提醒；只提醒，绝不替你做决定。'
+icon: https://raw.githubusercontent.com/Macicle77/dsh-approval-notifier/main/assets/icon-180.png

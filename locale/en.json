@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Sentinel · Confirmation reminders",
+    "description": "Pops one reminder card per pending confirmation in any workspace/session, with configurable animation and sound. Only reminds — it never answers for you."
+  }
+}
